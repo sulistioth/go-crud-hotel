@@ -1,0 +1,51 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto"; //digunakan jika tdk menggunakan parameter
+
+package grpc;
+
+message AddDepartemenReq{
+    string idDepartemen=1;
+    string namaDepartemen=2;
+    string status=3;
+    string keterangan=4;
+}
+
+message ReadDepartemenByNamaReq{
+    string namaDepartemen=1;
+}
+
+message ReadDepartemenByNamaResp{
+    string idDepartemen=1;
+    string namaDepartemen=2;
+    string status=3;
+    string keterangan=4;
+} 
+
+
+message ReadDepartemenResp{
+    repeated ReadDepartemenByNamaResp allDepartemen=1;
+}
+
+message UpdateDepartemenReq{
+    string idDepartemen=1;
+    string namaDepartemen=2;
+    string status=3;
+    string keterangan=4;
+}
+
+message ReadDepartemenByKeteranganReq {
+    string Keterangan = 1;
+}
+
+message ReadDepartemenByKeteranganResp{
+    repeated ReadDepartemenByNamaResp ketDepartemen = 1;
+}
+
+service DepartemenService{
+    rpc AddDepartemen(AddDepartemenReq) returns (google.protobuf.Empty) {};
+    rpc ReadDepartemen(google.protobuf.Empty) returns (ReadDepartemenResp){};
+    rpc UpdateDepartemen(UpdateDepartemenReq) returns (google.protobuf.Empty){};
+    rpc ReadDepartemenByNama(ReadDepartemenByNamaReq) returns (ReadDepartemenByNamaResp){};
+    rpc ReadDepartemenByKeterangan (ReadDepartemenByKeteranganReq) returns (ReadDepartemenByKeteranganResp){};
+}  
